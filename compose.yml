@@ -20,4 +20,10 @@ services:
     ports:
       - "1883:1883"
       - "9001:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto_pass.conf:/mosquitto/config/mosquitto_pass.conf
+    environment:
+      - MOSQUITTO_USERNAME=sensor_user
+      - MOSQUITTO_PASSWORD=sensor123
     
