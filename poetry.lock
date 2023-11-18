@@ -118,6 +118,19 @@ files = [
 ]
 
 [[package]]
+name = "paho-mqtt"
+version = "1.6.1"
+description = "MQTT version 5.0/3.1.1 client class"
+optional = false
+python-versions = "*"
+files = [
+    {file = "paho-mqtt-1.6.1.tar.gz", hash = "sha256:2a8291c81623aec00372b5a85558a372c747cbca8e9934dfe218638b8eefc26f"},
+]
+
+[package.extras]
+proxy = ["PySocks"]
+
+[[package]]
 name = "pydantic"
 version = "2.4.2"
 description = "Data validation using Python type hints"
@@ -416,4 +429,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "39bc649037f5434eaec906d30dd88f215d58d2c8b1b287c5e84db32ba9387338"
+content-hash = "13bdf31cb634faaf96fef94b0fa4f5ae2b3108cc6e7a2fde57520444d860b625"

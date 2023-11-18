@@ -1,24 +1,35 @@
-from fastapi import FastAPI, Request
-from contextlib import asynccontextmanager
 from datetime import datetime
-from pymongo import MongoClient
-from server.config import config
+import paho.mqtt.client as mqtt
 
+from server.database import database
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    app.mongodb_client = MongoClient(config["ATLAS_URI"])
-    app.database = app.mongodb_client[config["DB_NAME"]]
-    print("Connected to the MongoDB database!")
-    yield
-    app.mongodb_client.close()
+# MQTT Broker Settings
+broker_address = "localhost"  # You can use any MQTT broker of your choice
+port = 1883
+topic = "humidity"  # Change this to the topic you want to subscribe to
 
+# Callback when the client connects to the broker
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+    # Subscribe to the specified topic
+    client.subscribe(topic)
 
-app = FastAPI(lifespan=lifespan)
-    
-
-@app.post("/humidity")
-async def root(humidity: float, request: Request):
+# Callback when a message is received from the broker
+def on_message(client, userdata, msg):
+    humidity = msg.payload.decode()
+    print(f"Received message on topic {msg.topic}: {humidity}")
     now = datetime.now()
-    request.app.database.humiditydb.insert_one({'date': now, 'humidity': humidity})
-    return {'date': now, 'humidity': humidity}
+    database.humiditydb.insert_one({'date': now, 'humidity': humidity})
+
+# Create an MQTT client instance
+client = mqtt.Client()
+
+# Set the callback functions
+client.on_connect = on_connect
+client.on_message = on_message
+
+# Connect to the broker
+client.connect(broker_address, port, 60)
+
+# Loop to maintain the connection and receive messages
+client.loop_forever()
