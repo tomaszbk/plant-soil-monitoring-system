@@ -28,7 +28,7 @@ void setup() {
 	// WIFI CONNECTION
 	pinMode(GREEN_LED_PIN, OUTPUT);
 	pinMode(YELLOW_LED_PIN, OUTPUT);
-
+	pinMode(HUMIDITY_SENSOR_PIN, INPUT);
 	digitalWrite(GREEN_LED_PIN, LOW);
 	WiFi.begin(ssid, password);
 	while (WiFi.status() != WL_CONNECTED){
