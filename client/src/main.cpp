@@ -56,6 +56,7 @@ void setup() {
 }
 
 
+
 void loop() {
 	if (!mosquitto_client.connected()) {
 		reconnect();
@@ -88,7 +89,7 @@ void reconnect() {
 float getHumidity(){
 	float humidity = 0;
 
-	humidity = map(analogRead(HUMIDITY_SENSOR_PIN), 0, 1023, 100, 0);
+	humidity = map(analogRead(HUMIDITY_SENSOR_PIN), 0, 4095, 100, 0);
 
 	return humidity;
 }
