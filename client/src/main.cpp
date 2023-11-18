@@ -6,12 +6,12 @@
 #define GREEN_LED_PIN 14
 #define HUMIDITY_SENSOR_PIN 32
 
-const char* ssid = "Vora 2.4G";
-const char* password = "tomate0001";
-const char* mqttServer = "192.168.0.18";
+const char* ssid = "Vora";
+const char* password = "tomate01";
+const char* mqttServer = "192.168.1.46";
 const int mqttPort = 1883;
-const char* mqttUser = "tomas";
-const char* mqttPassword = "escape";
+const char* mqttUser = "sensor_user";
+const char* mqttPassword = "sensor123";
 
 char stringHumidity[4];
 
@@ -62,7 +62,7 @@ void loop() {
 	}
 	mosquitto_client.loop();
 	sprintf(stringHumidity, "%f", getHumidity());
-	mosquitto_client.publish("humidity", stringHumidity);
+	mosquitto_client.publish("sensor/humidity", stringHumidity);
 	delay(1000);
 }
 
