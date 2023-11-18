@@ -9,9 +9,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
-    command: uvicorn main:app --reload --host
 
   mongo:
     image: mongo
