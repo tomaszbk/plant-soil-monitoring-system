@@ -7,4 +7,4 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt 
 COPY server server
 #when container is run
-CMD ["python", "server/main.py"]
+CMD ["python", "-m", "server.main.py"]
