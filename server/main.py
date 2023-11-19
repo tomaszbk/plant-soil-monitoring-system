@@ -1,7 +1,7 @@
 from datetime import datetime
 import paho.mqtt.client as mqtt
 from loguru import logger
-from server.database import database
+from server.database import cursor, connection
 
 # MQTT Broker Settings
 broker_address = "humidity_sensor-mosquitto-1"  # You can use any MQTT broker of your choice
@@ -22,7 +22,8 @@ def on_message(client, userdata, msg):
     humidity = msg.payload.decode()
     print(f"Received message on topic {msg.topic}: {humidity}")
     now = datetime.now()
-    database.humiditydb.insert_one({'date': now, 'humidity': humidity})
+    cursor.execute('insert into sensor.humidity (value, timestamp) values (%s, %s)', (humidity, now))
+    connection.commit()
 
 # Create an MQTT client instance
 client = mqtt.Client()
