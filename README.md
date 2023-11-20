@@ -22,5 +22,9 @@ The readings are read from the database and visualized through in real time with
 ![Alt Text](/docs/humidity_sensor_setup.jpg)
 
 ## How it looks
+### Soil moisture sensor in real life:
+![Alt Text](/docs/sensor_real_life.jpeg)
 ### Sensor readings in the database:
 ![Alt Text](/docs/mongodb_database_documents.png)
+### Grafana Monitoring:
+![Alt Text](/docs/grafana_screenshot.png)
