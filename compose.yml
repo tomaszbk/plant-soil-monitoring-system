@@ -13,6 +13,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   postgres:
     image: postgres
@@ -24,6 +27,11 @@ services:
       - POSTGRES_DB=postgres
     volumes:
       - ./ddl.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "postgres", "-U", "postgres"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
 
   mosquitto:
     image: eclipse-mosquitto
